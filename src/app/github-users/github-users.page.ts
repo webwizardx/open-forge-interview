@@ -40,6 +40,15 @@ export class GithubUsersPage implements OnInit, OnDestroy {
     this.subscriptions.push(githubServiceSubscription, usersSubscription);
   }
 
+  /**
+   * Retrieves GitHub users based on the provided parameters.
+   *
+   * @param onComplete - Optional callback function to be executed when the retrieval is complete.
+   * @param params - Optional parameters for the GitHub user search.
+   * @returns A subscription to the GitHub users retrieval.
+   *
+   * @author Daniel Martinez
+   */
   getUsers({ onComplete, params }: { onComplete?: () => void, params?: GithubUserSearch }) {
     return this.githubService.getUsers(params)
       .subscribe((users) => {
@@ -49,6 +58,16 @@ export class GithubUsersPage implements OnInit, OnDestroy {
       );
   }
 
+  /**
+   * Event handler for the "ionInfinite" event.
+   *
+   * @param ev - The event object.
+   *
+   * @remarks
+   * This method is called when the "ionInfinite" event is triggered. It checks if the lastId property is truthy and calls the getUsers method with the appropriate parameters.
+   *
+   * @author Daniel Martinez
+   */
   onIonInfinite(ev: any) {
     if (!this.lastId) {
       return

@@ -41,6 +41,12 @@ export class GithubSearchPage implements OnDestroy {
     this.subscriptions = [];
   }
 
+  /**
+   * Retrieves user information based on the provided login.
+   * @param login - The login of the user to retrieve information for.
+   * @returns An Observable that emits the user information.
+   * @author Daniel Martinez
+   */
   getUser(login: string) {
     const getUserSubscription = this.githubService.getUser(login).subscribe(user => {
       this.user = user;
@@ -48,6 +54,14 @@ export class GithubSearchPage implements OnDestroy {
     this.subscriptions.push(getUserSubscription);
   }
 
+  /**
+   * Opens a website or blog using the provided URL.
+   *
+   * @param url - The URL of the website or blog to open.
+   * @returns A promise that resolves when the website or blog is opened.
+   *
+   * @author Daniel Martinez
+   */
   async openWebsiteOrBlog(url?: string) {
     if (!url) {
       return;
@@ -55,6 +69,12 @@ export class GithubSearchPage implements OnDestroy {
     await Browser.open({ url });
   };
 
+  /**
+   * Performs a search based on the provided event.
+   * @param event - The event object containing the search details.
+   * @returns void
+   * @author Daniel Martinez
+   */
   onSearch(event: any) {
     const value = event?.detail?.value;
 
@@ -64,6 +84,4 @@ export class GithubSearchPage implements OnDestroy {
 
     this.getUser(value);
   }
-
-
 }
