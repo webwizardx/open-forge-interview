@@ -1,0 +1,7 @@
+{
+  "name": "open-forge-interview",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
