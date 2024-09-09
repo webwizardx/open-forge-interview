@@ -1,23 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GithubService } from '../shared/services/github.service';
+import { GithubService } from '../shared/services/github/github.service';
 import { GithubApiActions } from '../state/github.actions';
 import { selectGithub } from '../state/github.selector';
+import { Subscription } from 'rxjs';
+import { GithubUser, GithubUserSearch } from '../shared/services/github/github.model';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
+  users = signal<GithubUser[]>([])
   users$ = this.store.select(selectGithub);
+  private lastId = 0;
+  private subscriptions: Subscription[] = []
 
-  constructor(private githubService: GithubService, private store: Store) {}
+  constructor(private githubService: GithubService, private store: Store) { }
+
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 
   ngOnInit() {
-    this.githubService.getUsers()
-      .subscribe((users) =>
-        this.store.dispatch(GithubApiActions.retrievedGithubUsersList({ users }))
+    const githubServiceSubscription = this.getUsers({})
+
+    const usersSubscription = this.users$.subscribe(users => {
+      const newUsers = [...this.users(), ...users];
+      this.users.set(newUsers);
+      this.lastId = newUsers[newUsers.length - 1]?.id;
+    });
+
+    this.subscriptions.push(githubServiceSubscription, usersSubscription);
+  }
+
+  getUsers({ onComplete, params }: { onComplete?: () => void, params?: GithubUserSearch }) {
+    return this.githubService.getUsers(params)
+      .subscribe((users) => {
+        this.store.dispatch(GithubApiActions.retrievedGithubUsersList({ users }));
+        onComplete?.();
+      }
       );
+  }
+
+  onIonInfinite(ev: any) {
+    if (!this.lastId) {
+      return
+    }
+    this.getUsers({ onComplete: () => ev.target.complete(), params: { since: this.lastId } });
   }
 }

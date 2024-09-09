@@ -12,8 +12,19 @@
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  @for (user of users$ | async; track user.name) {
-    <p>{{user | json }}</p>
-  }
+  <ion-content>
+    <ion-list>
+      @for (user of users(); track user.id) {
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]="user.avatar_url" alt="avatar" />
+          </ion-avatar>
+          <ion-label>{{ user.login }}</ion-label>
+        </ion-item>
+      }
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
 </ion-content>
