@@ -13,5 +13,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  @for (user of users$ | async; track user.name) {
+    <p>{{user | json }}</p>
+  }
 </ion-content>
