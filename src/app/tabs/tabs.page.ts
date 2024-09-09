@@ -1,7 +1,7 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { triangle, ellipse, square } from 'ionicons/icons';
+import { triangle, ellipse, square, logoGithub, searchCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -12,10 +12,10 @@ export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
 
   constructor(private router: Router) {
-    addIcons({ triangle, ellipse, square });
+    addIcons({ logoGithub, searchCircleOutline });
   }
 
-  navigateToTab2() {
-    this.router.navigate(['/tabs/tab2']);
+  navigateToGithubSearch() {
+    this.router.navigate(['/tabs/github-search']);
   }
 }

@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Github Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar animated="true" debounce="500" [value]="search" (ionChange)="onSearch($event)" placeholder="Animated"
+    show-clear-button="always"></ion-searchbar>
+  @if (user) {
+    <ion-card class="ion-text-start">
+      <ion-card-header>
+        <ion-avatar class="mx-auto">
+          <img [src]="user.avatar_url" alt="avatar" />
+        </ion-avatar>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-text class="block">
+          <span class="font-bold text-base">
+            Full Name:
+          </span> {{ user.name || 'Not provided' }}
+        </ion-text>
+        <ion-text class="block">
+          <span class="font-bold text-base">
+            Bio:
+          </span> {{ user.bio || 'Not provided' }}
+        </ion-text>
+        <ion-text class="block">
+          <span class="font-bold text-base">
+            Company:
+          </span> {{ user.company || 'Not provided' }}
+        </ion-text>
+        <ion-text class="block">
+          <span class="font-bold text-base">
+            Location:
+          </span> {{ user.location || 'Not provided' }}
+        </ion-text>
+        <ion-text class="block" (click)="openWebsiteOrBlog(user.blog)">
+          <span class="font-bold text-base">
+            Website/Blog:
+          </span> {{ user.blog || 'Not provided' }}
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  }
+</ion-content>

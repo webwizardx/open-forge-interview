@@ -8,12 +8,13 @@ import { personCircleOutline } from 'ionicons/icons';
 import { Browser } from '@capacitor/browser';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
+  selector: 'app-github-search',
+  templateUrl: 'github-search.page.html',
+  styleUrls: ['github-search.page.scss'],
 })
-export class Tab2Page implements OnDestroy {
+export class GithubSearchPage implements OnDestroy {
   user: GithubUser | null = null;
+  search = '';
   subscriptions: Subscription[] = [];
 
   constructor(private githubService: GithubService, private route: ActivatedRoute) {
@@ -21,13 +22,25 @@ export class Tab2Page implements OnDestroy {
     this.route.queryParams.subscribe(query => {
       if (query['login']) {
         this.getUser(query['login']);
+        this.search = query['login'];
       }
     })
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
+    this.user = null;
+    this.search = '';
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions = [];
   }
+
+  ngOnDestroy(): void {
+    this.user = null;
+    this.search = '';
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions = [];
+  }
+
   getUser(login: string) {
     const getUserSubscription = this.githubService.getUser(login).subscribe(user => {
       this.user = user;
@@ -42,7 +55,7 @@ export class Tab2Page implements OnDestroy {
     await Browser.open({ url });
   };
 
-  search(event: any) {
+  onSearch(event: any) {
     const value = event?.detail?.value;
 
     if (!value) {

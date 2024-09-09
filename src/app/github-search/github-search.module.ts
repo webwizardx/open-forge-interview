@@ -2,19 +2,17 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { GithubSearchPage } from './github-search.page';
 
-import { Tab1PageRoutingModule } from './tab1-routing-module';
-import { Router } from '@angular/router';
+import { GithubSearchPageRoutingModule } from './github-search-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab1PageRoutingModule
+    GithubSearchPageRoutingModule
   ],
-  declarations: [Tab1Page],
+  declarations: [GithubSearchPage]
 })
-export class Tab1PageModule {
-}
+export class GithubSearchPageModule {}

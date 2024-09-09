@@ -8,23 +8,23 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'github-users',
+        loadChildren: () => import('../github-users/github-users.module').then(m => m.GithubUsersPageModule)
       },
       {
-        path: 'tab2', // Add the login parameter to the route
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'github-search', // Add the login parameter to the route
+        loadChildren: () => import('../github-search/github-search.module').then(m => m.GithubSearchPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/github-users',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/github-users',
     pathMatch: 'full'
   }
 ];

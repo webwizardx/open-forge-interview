@@ -8,11 +8,11 @@ import { GithubUser, GithubUserSearch } from '../shared/services/github/github.m
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
+  selector: 'app-github-users',
+  templateUrl: 'github-users.page.html',
+  styleUrls: ['github-users.page.scss'],
 })
-export class Tab1Page implements OnInit, OnDestroy {
+export class GithubUsersPage implements OnInit, OnDestroy {
   users = signal<GithubUser[]>([])
   users$ = this.store.select(selectGithub);
   private lastId = 0;
@@ -21,7 +21,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   constructor(private githubService: GithubService, private router: Router, private store: Store) { }
 
   navigateToUserSearchTab(login: string) {
-    this.router.navigate(['/tabs/tab2'], { queryParams: { login } });
+    this.router.navigate(['/tabs/github-search'], { queryParams: { login } });
   }
 
   ngOnDestroy(): void {
