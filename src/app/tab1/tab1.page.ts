@@ -5,6 +5,7 @@ import { GithubApiActions } from '../state/github.actions';
 import { selectGithub } from '../state/github.selector';
 import { Subscription } from 'rxjs';
 import { GithubUser, GithubUserSearch } from '../shared/services/github/github.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -17,8 +18,11 @@ export class Tab1Page implements OnInit, OnDestroy {
   private lastId = 0;
   private subscriptions: Subscription[] = []
 
-  constructor(private githubService: GithubService, private store: Store) { }
+  constructor(private githubService: GithubService, private router: Router, private store: Store) { }
 
+  navigateToUserSearchTab(login: string) {
+    this.router.navigate(['/tabs/tab2'], { queryParams: { login } });
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

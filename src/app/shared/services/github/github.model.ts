@@ -17,6 +17,20 @@ export interface GithubUser {
   received_events_url: string;
   type: string;
   site_admin: boolean;
+  name: string;
+  company: string;
+  blog: string;
+  location: string;
+  email: string;
+  hireable: null;
+  bio: null;
+  twitter_username: null;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface GithubUserSearch {

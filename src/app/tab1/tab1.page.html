@@ -15,7 +15,7 @@
   <ion-content>
     <ion-list>
       @for (user of users(); track user.id) {
-        <ion-item>
+        <ion-item (click)="navigateToUserSearchTab(user.login)">
           <ion-avatar slot="start">
             <img [src]="user.avatar_url" alt="avatar" />
           </ion-avatar>
